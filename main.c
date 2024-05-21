@@ -14,10 +14,10 @@ void headerF(FILE *prevodyS){
 
 int main() {
     FILE *cislaS, *prevodyS;
-    int draha;
-    int cas;
+    int draha = 0;
+    int cas = 0;
     int poradi = 0;
-    int delkaDrahy;
+    int delkaDrahy = 0;
     int Fporadi = 0;
     if ((cislaS = fopen(VSTUPNISOUBOR, "r")) == NULL){
         printf("Pri otevirani souboru %s vznikl error :/\n", VSTUPNISOUBOR);
@@ -35,22 +35,23 @@ int main() {
               printf("\n%5d.|%11d m|%10d s| %.2f m/s",poradi, draha, cas, (float)draha/cas);
               if(draha/cas > 10){
                   Fporadi++;
-                  fprintf(prevodyS,"\n%2d.| %2d km %5d metru| %2d minut %2d sekund| %6.2f km/h", Fporadi, draha / 1000, draha % 1000, cas / 60, cas % 60, (float)(draha/cas)* 3.6);
+                  fprintf(prevodyS,"\n%2d.| %2d km %5d metru| %2d minut %2d sekund| %6.2f km/h", Fporadi, draha / 1000, draha % 1000, cas / 60, cas % 60, (float)draha/cas* 3.6);
               }
 
           }
         }
     }
-    printf("\n\nPrumerna delka drahy je %.2f metru", (float)delkaDrahy / poradi);
+    printf("\n\nPrumerna delka drahy je %.2f metru",(float)delkaDrahy / poradi );
     printf("\nZe souboru bylo precteno %d dvojic cisel", poradi);
     fprintf(prevodyS,"\nDo souboru bylo zapsano %d dvojic cisel", Fporadi);
+
     if (fclose(cislaS) == EOF) {
-        printf("There has ben an error at closing the file %s.\n", VSTUPNISOUBOR);
+        printf("\nThere has ben an error at closing the file %s.\n", VSTUPNISOUBOR);
     }
     if (fclose(prevodyS) == EOF) {
-        printf("There has ben an error at closing the file %s.\n", ODCHOZISOUBOR);
+        printf("\nThere has ben an error at closing the file %s.\n", ODCHOZISOUBOR);
     } else {
-        printf("%s file has been created.\n", ODCHOZISOUBOR);
+        printf("\n%s file has been created.\n", ODCHOZISOUBOR);
     }
     return 0;
 }
